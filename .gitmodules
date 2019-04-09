@@ -1,0 +1,6 @@
+[submodule "evm-semantics"]
+	path = evm-semantics
+	url = git@github.com:kframework/evm-semantics.git
+[submodule "osm"]
+	path = osm
+	url = git@github.com:makerdao/osm.git

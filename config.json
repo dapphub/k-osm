@@ -1,0 +1,17 @@
+{
+  "name": "k-osm",
+  "src": {
+    "specification": "src/osm.md",
+    "smt_prelude": "src/prelude.smt2.md",
+    "rules": [
+      "src/storage.k.md",
+      "src/lemmas.k.md"
+    ]
+  },
+  "implementations": {
+    "OSM": {
+      "solc_output": "osm/out/osm.sol.json"
+    }
+  },
+  "dapp_root": "osm"
+}
