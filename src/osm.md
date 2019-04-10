@@ -1,9 +1,9 @@
-some text
-
 Table of Contents
 =================
 
-# OSM
+# Accessors
+
+## src
 
 ```act
 behaviour src of OSM
@@ -15,7 +15,7 @@ for all
 
 storage
 
-    1  |-> Src
+    src  |-> Src
     
 iff
 
