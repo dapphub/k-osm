@@ -6,16 +6,20 @@ Table of Contents
 # OSM
 
 ```act
-behaviour zzz of OSM
-interface zzz()
+behaviour src of OSM
+interface src()
 
 for all
 
-	ZZZ : uint256
+    Src : address
 
 storage
 
-	zzz  |-> ZZZ
+    1  |-> Src
+    
+iff
 
-returns ZZZ
+    VCallValue == 0
+
+returns Src
 ```
