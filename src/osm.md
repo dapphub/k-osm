@@ -26,27 +26,27 @@ returns Ward
 
 ## src
 
-// ```act
-// behaviour src of OSM
-// interface src()
-// 
-// for all
-// 
-//     Src : address
-//     // Hop : uint16
-//     // Zzz : uint64
-//     
-// 
-// storage
-// 
-//     src_hop_zzz |-> #WordPackAddrUInt16UInt64(Src, _, _)
-//     
-// iff
-// 
-//     VCallValue == 0
-// 
-// returns Src
-// ```
+```act
+behaviour src of OSM
+interface src()
+
+for all
+
+    Src : address
+    Hop : uint16
+    Zzz : uint64
+    
+
+storage
+
+    src_hop_zzz |-> #WordPackAddrUInt16UInt64(Src, Hop, Zzz)
+    
+iff
+
+    VCallValue == 0
+
+returns Src
+```
 
 ## hop
 
@@ -74,3 +74,24 @@ returns Hop
 
 ## zzz
 
+```act
+behaviour zzz of OSM
+interface zzz()
+
+for all
+
+    Src : address
+    Hop : uint16
+    Zzz : uint64
+    
+
+storage
+
+    src_hop_zzz |-> #WordPackAddrUInt16UInt64(Src, Hop, Zzz)
+    
+iff
+
+    VCallValue == 0
+
+returns Zzz
+```
