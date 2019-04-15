@@ -1,5 +1,6 @@
 {
   "name": "k-osm",
+  "url": "https://github.com/dapphub/k-osm/",
   "src": {
     "specification": "src/osm.md",
     "smt_prelude": "src/prelude.smt2.md",
