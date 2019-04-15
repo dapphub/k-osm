@@ -5,6 +5,7 @@ specs: dapp
 	klab build
 
 dapp:
+	git submodule sync --recursive
 	git submodule update --init --recursive
 	cd osm && dapp build
 
