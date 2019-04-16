@@ -41,15 +41,15 @@ rule #string2Word(S) => #asWord(#padRightToWidth(32, #parseByteStackRaw(S)))
 ### hashed storage
 
 ```k
-// hashed storage offsets never overflow (probabilistic assumption):
-rule chop(keccakIntList(L) +Int N) => keccakIntList(L) +Int N
-  requires N <=Int 100
-
-// solidity also needs:
-rule chop(keccakIntList(L)) => keccakIntList(L)
-// and
-rule chop(N +Int keccakIntList(L)) => keccakIntList(L) +Int N
-  requires N <=Int 100
+// // hashed storage offsets never overflow (probabilistic assumption):
+// rule chop(keccakIntList(L) +Int N) => keccakIntList(L) +Int N
+//   requires N <=Int 100
+// 
+// // solidity also needs:
+// rule chop(keccakIntList(L)) => keccakIntList(L)
+// // and
+// rule chop(N +Int keccakIntList(L)) => keccakIntList(L) +Int N
+//   requires N <=Int 100
 ```
 
 ### solidity masking
@@ -57,11 +57,19 @@ rule chop(N +Int keccakIntList(L)) => keccakIntList(L) +Int N
 ```k
 rule X |Int 0 => X
 
-rule chop(A &Int B) => A &Int B
+// rule chop(A &Int B) => A &Int B
+//   requires #rangeUInt(256, A)
+//   andBool #rangeUInt(256, B)
+// 
+// rule chop(A |Int B) => A |Int B
+//   requires #rangeUInt(256, A)
+//   andBool #rangeUInt(256, B)
+  
+rule (A |Int B) <Int pow256 => true
   requires #rangeUInt(256, A)
   andBool #rangeUInt(256, B)
 
-rule chop(A |Int B) => A |Int B
+rule (A &Int B) <Int pow256 => true
   requires #rangeUInt(256, A)
   andBool #rangeUInt(256, B)
   
@@ -70,21 +78,22 @@ rule (Y *Int pow176 +Int X *Int pow160 +Int A) <Int pow256 => true
   andBool #rangeUInt(16, X)
   andBool #rangeUInt(64, Y)
   
-// rule (A |Int MaskLast20 &Int Y *Int pow176 +Int X *Int pow160 +Int Ap) <Int pow256 => true
-//   requires #rangeAddress(A)
-//   andBool #rangeAddress(Ap)
-//   andBool #rangeUInt(16, X)
-//   andBool #rangeUInt(64, Y)
-  
-rule A |Int MaskLast20 => MaskLast20 +Int A
-  requires #rangeAddress(A)
-  
 rule MaskFirst12 &Int (Y *Int pow176 +Int X *Int pow160 +Int A) => A
   requires #rangeAddress(A)
   andBool #rangeUInt(16, X)
   andBool #rangeUInt(64, Y)
 
 rule MaskFirst30 &Int (Y *Int pow176 +Int X *Int pow160 +Int A) /Int pow160 => X
+  requires #rangeAddress(A)
+  andBool #rangeUInt(16, X)
+  andBool #rangeUInt(64, Y)
+
+rule MaskLast20 &Int (Y *Int pow176 +Int X *Int pow160 +Int A) => Y *Int pow176 +Int X *Int pow160
+  requires #rangeAddress(A)
+  andBool #rangeUInt(16, X)
+  andBool #rangeUInt(64, Y)
+
+rule A |Int (Y *Int pow176 +Int X *Int pow160) => Y *Int pow176 +Int X *Int pow160 +Int A
   requires #rangeAddress(A)
   andBool #rangeUInt(16, X)
   andBool #rangeUInt(64, Y)
