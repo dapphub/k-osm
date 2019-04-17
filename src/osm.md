@@ -96,6 +96,10 @@ iff
 returns Zzz
 ```
 
+## bud
+
+# Mutators
+
 ## rely
 
 ```act
@@ -191,28 +195,6 @@ if
 
     CALLER_ID == guy
 ```
-
-## bud
-
-```act
-behaviour bud of OSM
-interface bud(address a)
-
-for all
-
-    Bud : bool
-
-storage
-
-    bud[a] |-> Bud
-    
-iff
-
-    VCallValue == 0
-    
-returns Bud
-```
-
 ## change
 
 ```act
@@ -235,8 +217,33 @@ iff
 
     Ward == 1
     VCallValue == 0
-    
-if
-
-    a =/= Src
 ```
+
+## step
+
+```act
+behaviour step of OSM
+interface step(uint16 ts)
+
+for all
+
+    Src  : address
+    Hop  : uint16
+    Zzz  : uint64
+    Ward : uint256
+
+storage
+
+    wards[CALLER_ID] |-> Ward
+    src_hop_zzz      |-> #WordPackAddrUInt16UInt64(Src, Hop, Zzz) => #WordPackAddrUInt16UInt64(Src, ts, Zzz)
+    
+iff
+
+    Ward == 1
+    VCallValue == 0
+    ts > 0
+```
+
+## void
+
+
