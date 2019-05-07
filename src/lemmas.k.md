@@ -13,21 +13,29 @@ rule pow176 => 95780971304118053647396689196894323976171195136475136  [macro]
 syntax Int ::= "MaskFirst30"                                           [function]
 syntax Int ::= "MaskFirst12"                                           [function]
 syntax Int ::= "MaskLast20"                                            [function]
+syntax Int ::= "MaskLast1"                                             [function]
 rule MaskFirst30 => 65535                                              [macro]
 rule MaskFirst12 => 1461501637330902918203684832716283019655932542975  [macro]
 rule MaskLast20 => 115792089237316195423570985007226406215939081747436879206741300988257197096960 [macro]
+rule MaskLast1 =>
+115792089237316195423570985008687907853269984665640564039457584007913129639680 [macro]
 
 syntax Int ::= "minUInt16"
              | "maxUInt16"
              | "minUInt64"
              | "maxUInt64"
+             | "minUInt128"
+             | "maxUInt128"
 
 rule minUInt16         =>  0                                   [macro]
 rule maxUInt16         =>  65535                               [macro]
 rule minUInt64         =>  0                                   [macro]
 rule maxUInt64         =>  18446744073709551615                [macro]
+rule minUInt128        =>  0                                   [macro]
+rule maxUInt128        =>  340282366920938463463374607431768211455 [macro]
 rule #rangeUInt(16, X) => #range(minUInt16 <= X <= maxUInt16)  [macro]
 rule #rangeUInt(64, X) => #range(minUInt64 <= X <= maxUInt64)  [macro]
+rule #rangeUInt(128, X) => #range(minUInt128 <= X <= maxUInt128)  [macro]
 ```
 
 ### string literal syntax
@@ -92,9 +100,13 @@ rule MaskLast20 &Int (Y *Int pow176 +Int X *Int pow160 +Int A) => Y *Int pow176 
   requires #rangeAddress(A)
   andBool #rangeUInt(16, X)
   andBool #rangeUInt(64, Y)
-
+  
 rule A |Int (Y *Int pow176 +Int X *Int pow160) => Y *Int pow176 +Int X *Int pow160 +Int A
   requires #rangeAddress(A)
   andBool #rangeUInt(16, X)
   andBool #rangeUInt(64, Y)
+
+// for kiss
+rule MaskLast1 &Int B => 0
+  requires #rangeUInt(1, B)
 ```

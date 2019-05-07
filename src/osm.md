@@ -98,6 +98,103 @@ returns Zzz
 
 ## bud
 
+```act
+behaviour bud of OSM
+interface bud(address a)
+
+for all
+
+    Bud : bool
+    
+storage
+
+    bud[a] |-> Bud
+    
+iff
+
+    VCallValue == 0
+    
+returns Bud
+```
+
+## pass
+
+```act
+behaviour pass-true of OSM
+interface pass()
+
+for all
+
+    Src : address
+    Hop : uint16
+    Zzz : uint64
+
+storage
+
+    src_hop_zzz |-> #WordPackAddrUInt16UInt64(Src, Hop, Zzz)
+
+if
+
+    TIME >= Zzz + Hop
+    
+iff
+
+    VCallValue == 0
+    
+returns 1
+```
+
+```act
+behaviour pass-false of OSM
+interface pass()
+
+for all
+
+    Src : address
+    Hop : uint16
+    Zzz : uint64
+
+storage
+
+    src_hop_zzz |-> #WordPackAddrUInt16UInt64(Src, Hop, Zzz)
+
+if
+
+    TIME < Zzz + Hop
+    
+iff
+
+    VCallValue == 0
+    
+returns 0
+```
+
+## peek
+
+```act
+behaviour peek of OSM
+interface peek()
+
+for all
+
+    Val : uint128
+    Has : bool
+    Bud : bool
+
+storage
+
+    cur            |-> #WordPackUInt128Bool(Val, Has)
+    bud[CALLER_ID] |-> Bud
+    
+iff
+
+    Bud == 1
+    VCallValue == 0
+    
+returns Val : Has
+```
+
+
 # Mutators
 
 ## rely
@@ -246,4 +343,73 @@ iff
 
 ## void
 
+```act
+behaviour void of OSM
+interface void()
 
+for all
+    
+    CurVal  : uint128
+    CurHas  : bool
+    NxtVal  : uint128
+    NxtHas  : bool
+    Ward : uint256
+
+storage
+
+    wards[CALLER_ID] |-> Ward
+    cur              |-> #WordPackUInt128Bool(CurVal, CurHas) => #WordPackUInt128Bool(0, 0)
+    nxt              |-> #WordPackUInt128Bool(NxtVal, NxtHas) => #WordPackUInt128Bool(0, 0)
+    
+iff
+
+    Ward == 1
+    VCallValue == 0
+```
+
+## poke
+
+## kiss
+
+```act
+behaviour kiss of OSM
+interface kiss(address a)
+
+for all
+
+    Ward : uint256
+    Bud  : bool
+
+storage
+
+    wards[CALLER_ID] |-> Ward
+    bud[a]           |-> Bud   => 1
+    
+iff
+
+    Ward == 1
+    a =/= 0
+    VCallValue == 0
+```
+
+## diss
+
+```act
+behaviour diss of OSM
+interface diss(address a)
+
+for all
+
+    Ward : uint256
+    Bud  : bool
+
+storage
+
+    wards[CALLER_ID] |-> Ward
+    bud[a]           |-> Bud   => 0
+    
+iff
+
+    Ward == 1
+    VCallValue == 0
+```
