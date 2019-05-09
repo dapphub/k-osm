@@ -157,7 +157,11 @@ storage
 if
 
     TIME >= Zzz + Hop
-    
+
+iff in range uint64
+
+    Zzz + Hop
+
 iff
 
     VCallValue == 0
@@ -182,7 +186,11 @@ storage
 if
 
     TIME < Zzz + Hop
-    
+
+iff in range uint64
+
+    Zzz + Hop
+
 iff
 
     VCallValue == 0
