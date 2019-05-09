@@ -12,15 +12,15 @@ interface wards(address a)
 for all
 
     Ward : uint256
-    
+
 storage
 
     wards[a] |-> Ward
-    
+
 iff
 
     VCallValue == 0
-    
+
 returns Ward
 ```
 
@@ -33,15 +33,15 @@ interface stopped()
 for all
 
     Stopped : uint256
-    
+
 storage
 
     stopped |-> Stopped
-    
+
 iff
 
     VCallValue == 0
-    
+
 returns Stopped
 ```
 
@@ -56,12 +56,12 @@ for all
     Src : address
     Hop : uint16
     Zzz : uint64
-    
+
 
 storage
 
     src_hop_zzz |-> #WordPackAddrUInt16UInt64(Src, Hop, Zzz)
-    
+
 iff
 
     VCallValue == 0
@@ -80,12 +80,12 @@ for all
     Src : address
     Hop : uint16
     Zzz : uint64
-    
+
 
 storage
 
     src_hop_zzz |-> #WordPackAddrUInt16UInt64(Src, Hop, Zzz)
-    
+
 iff
 
     VCallValue == 0
@@ -104,12 +104,12 @@ for all
     Src : address
     Hop : uint16
     Zzz : uint64
-    
+
 
 storage
 
     src_hop_zzz |-> #WordPackAddrUInt16UInt64(Src, Hop, Zzz)
-    
+
 iff
 
     VCallValue == 0
@@ -126,15 +126,15 @@ interface bud(address a)
 for all
 
     Bud : uint256
-    
+
 storage
 
     bud[a] |-> Bud
-    
+
 iff
 
     VCallValue == 0
-    
+
 returns Bud
 ```
 
@@ -165,7 +165,7 @@ iff in range uint64
 iff
 
     VCallValue == 0
-    
+
 returns 1
 ```
 
@@ -194,7 +194,7 @@ iff in range uint64
 iff
 
     VCallValue == 0
-    
+
 returns 0
 ```
 
@@ -214,16 +214,16 @@ storage
 
     cur            |-> #WordPackUInt128UInt128(Val, Has)
     bud[CALLER_ID] |-> Bud
-    
+
 if
 
     Has == 1
-    
+
 iff
 
     Bud == 1
     VCallValue == 0
-    
+
 returns Val : 1
 ```
 
@@ -245,13 +245,13 @@ storage
 
     bud[CALLER_ID] |-> Bud
     cur            |-> #WordPackUInt128UInt128(Val, Has)
-    
+
 iff
 
     VCallValue == 0
     Bud == 1
     Has == 1
-    
+
 returns Val
 ```
 
@@ -272,12 +272,12 @@ storage
 
     wards[CALLER_ID] |-> May
     wards[guy]       |-> Ward  => 1
-    
+
 iff
 
     VCallValue == 0
     May == 1
-    
+
 if
 
     CALLER_ID =/= guy
@@ -294,12 +294,12 @@ for all
 storage
 
     wards[CALLER_ID] |-> May => 1
-    
+
 iff
 
     VCallValue == 0
     May == 1
-    
+
 if
 
     CALLER_ID == guy
@@ -315,17 +315,17 @@ for all
 
     May  : uint256
     Ward : uint256
-    
+
 storage
 
     wards[CALLER_ID] |-> May
     wards[guy]       |-> Ward => 0
-    
+
 iff
 
     VCallValue == 0
     May == 1
-    
+
 if
 
     CALLER_ID =/= guy
@@ -338,16 +338,16 @@ interface deny(address guy)
 for all
 
     May  : uint256
-    
+
 storage
 
     wards[CALLER_ID] |-> May => 0
-    
+
 iff
 
     VCallValue == 0
     May == 1
-    
+
 if
 
     CALLER_ID == guy
@@ -363,12 +363,12 @@ for all
 
     Ward    : uint256
     Stopped : uint256
-    
+
 storage
 
     wards[CALLER_ID] |-> Ward
     stopped |-> Stopped => 1
-    
+
 iff
 
     Ward == 1
@@ -385,12 +385,12 @@ for all
 
     Ward    : uint256
     Stopped : uint256
-    
+
 storage
 
     wards[CALLER_ID] |-> Ward
     stopped          |-> Stopped => 0
-    
+
 iff
 
     Ward == 1
@@ -414,7 +414,7 @@ storage
 
     wards[CALLER_ID] |-> Ward
     src_hop_zzz      |-> #WordPackAddrUInt16UInt64(Src, Hop, Zzz) => #WordPackAddrUInt16UInt64(a, Hop, Zzz)
-    
+
 iff
 
     Ward == 1
@@ -438,7 +438,7 @@ storage
 
     wards[CALLER_ID] |-> Ward
     src_hop_zzz      |-> #WordPackAddrUInt16UInt64(Src, Hop, Zzz) => #WordPackAddrUInt16UInt64(Src, ts, Zzz)
-    
+
 iff
 
     Ward == 1
@@ -453,7 +453,7 @@ behaviour void of OSM
 interface void()
 
 for all
-    
+
     CurVal  : uint128
     CurHas  : uint128
     NxtVal  : uint128
@@ -466,7 +466,7 @@ storage
     cur              |-> #WordPackUInt128UInt128(CurVal, CurHas) => #WordPackUInt128UInt128(0, 0)
     nxt              |-> #WordPackUInt128UInt128(NxtVal, NxtHas) => #WordPackUInt128UInt128(0, 0)
     stopped          |-> Stopped => 1
-    
+
 iff
 
     Ward == 1
@@ -490,7 +490,7 @@ storage
 
     wards[CALLER_ID] |-> Ward
     bud[a]           |-> Bud   => 1
-    
+
 iff
 
     VCallValue == 0
@@ -513,7 +513,7 @@ storage
 
     wards[CALLER_ID] |-> Ward
     bud[a]           |-> Bud   => 0
-    
+
 iff
 
     VCallValue == 0
