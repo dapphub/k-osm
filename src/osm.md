@@ -581,6 +581,51 @@ iff
 
 ## poke
 
+```act
+behaviour poke of OSM
+interface poke()
+
+for all
+
+    Stopped : uint256
+    Src     : address
+    Hop     : uint16
+    Zzz     : uint64
+    Value   : address ValueLike
+    Wut     : bytes32
+    Ok      : bool
+    CurVal  : uint128
+    CurHas  : uint128
+    NxtVal  : uint128
+    NxtHas  : uint128
+
+storage
+
+    stopped       |-> Stopped
+    src_hop_zzz   |-> #WordPackAddrUInt16UInt64(Src, Hop, Zzz) => #WordPackAddrUInt16UInt64(Src, Hop, (TIME - (TIME %Int Hop)))
+    cur           |-> #WordPackUInt128UInt128(CurVal, CurHas)  => #WordPackUInt128UInt128(NxtVal, NxtHas)
+    nxt           |-> #WordPackUInt128UInt128(NxtVal, NxtHas)  => #WordPackUInt128UInt128((#drop(16, Wut)), 1)
+    
+storage Value
+
+    wut |-> Wut
+    ok  |-> Ok
+    
+if
+
+    Ok == 1
+
+iff in range uint64
+
+    Zzz + Hop
+    
+iff
+
+    VCallValue == 0
+    Stopped == 0
+    TIME >= Zzz + Hop
+```
+
 ## kiss
 
 ```act

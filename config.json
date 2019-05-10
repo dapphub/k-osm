@@ -12,6 +12,10 @@
   "implementations": {
     "OSM": {
       "solc_output": "osm/out/osm.sol.json"
+    },
+    "ValueLike": {
+      "name": "DSValue",
+      "solc_output": "osm/out/value.sol.json"
     }
   },
   "dapp_root": "osm"
