@@ -226,7 +226,7 @@ returns 0
 ## peek
 
 ```act
-behaviour peek-true of OSM
+behaviour peek-eq of OSM
 interface peek()
 
 for all
@@ -253,7 +253,7 @@ returns Val : 1
 ```
 
 ```act
-behaviour peek-false of OSM
+behaviour peek-neq of OSM
 interface peek()
 
 for all
@@ -282,7 +282,7 @@ returns Val : 0
 ## peep
 
 ```act
-behaviour peep-true of OSM
+behaviour peep-eq of OSM
 interface peep()
 
 for all
@@ -309,7 +309,7 @@ returns Val : 1
 ```
 
 ```act
-behaviour peep-false of OSM
+behaviour peep-neq of OSM
 interface peep()
 
 for all
