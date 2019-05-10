@@ -141,31 +141,6 @@ returns Bud
 ## pass
 
 ```act
-behaviour pass of OSM
-interface pass()
-
-for all
-
-    Src : address
-    Hop : uint16
-    Zzz : uint64
-
-storage
-
-    src_hop_zzz |-> #WordPackAddrUInt16UInt64(Src, Hop, Zzz)
-
-iff in range uint64
-
-    Zzz + Hop
-
-iff
-
-    VCallValue == 0
-
-returns (#if TIME >= Zzz + Hop #then 1 #else 0 #fi)
-```
-
-```act
 behaviour pass-true of OSM
 interface pass()
 
