@@ -91,10 +91,15 @@ rule MaskFirst16 &Int (Y *Int pow128 +Int X) => X
 // special case for a boolean
 rule MaskFirst16 &Int (pow128 +Int X) => X
   requires #rangeUInt(128, X)
-
-rule MaskFirst24 &Int X => X
-  requires #rangeUInt(64, X)
-
+  
+rule (Y *Int pow128 +Int X) /Int pow128 => Y
+  requires #rangeUInt(128, X)
+  andBool #rangeUInt(128, Y)
+  
+rule MaskFirst24 &Int (Y +Int X) => Y +Int X
+  requires #rangeUInt(16, X)
+  andBool #rangeUInt(64, Y)
+  
 rule MaskFirst30 &Int (Y *Int pow176 +Int X *Int pow160 +Int A) /Int pow160 => X
   requires #rangeAddress(A)
   andBool #rangeUInt(16, X)
@@ -107,9 +112,9 @@ rule MaskLast20 &Int (Y *Int pow176 +Int X *Int pow160 +Int A) => Y *Int pow176 
 
 // could be strenghtened to #rangeUInt(80, Y) but...
 rule (Y *Int pow176 +Int X *Int pow160 +Int A) /Int pow176 => Y
-  requires #rangeUInt(64, Y)
+  requires #rangeAddress(A)
   andBool #rangeUInt(16, X)
-  andBool #rangeAddress(A)
+  andBool #rangeUInt(64, Y)
 
 rule A |Int (Y *Int pow176 +Int X *Int pow160) => Y *Int pow176 +Int X *Int pow160 +Int A
   requires #rangeAddress(A)

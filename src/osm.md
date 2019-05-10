@@ -141,6 +141,31 @@ returns Bud
 ## pass
 
 ```act
+behaviour pass of OSM
+interface pass()
+
+for all
+
+    Src : address
+    Hop : uint16
+    Zzz : uint64
+
+storage
+
+    src_hop_zzz |-> #WordPackAddrUInt16UInt64(Src, Hop, Zzz)
+
+iff in range uint64
+
+    Zzz + Hop
+
+iff
+
+    VCallValue == 0
+
+returns (#if TIME >= Zzz + Hop #then 1 #else 0 #fi)
+```
+
+```act
 behaviour pass-true of OSM
 interface pass()
 
@@ -221,13 +246,94 @@ if
 
 iff
 
-    Bud == 1
     VCallValue == 0
+    Bud == 1
+    
+returns Val : 1
+```
+
+```act
+behaviour peek-false of OSM
+interface peek()
+
+for all
+
+    Val : uint128
+    Has : uint128
+    Bud : uint256
+
+storage
+
+    cur            |-> #WordPackUInt128UInt128(Val, Has)
+    bud[CALLER_ID] |-> Bud
+
+if
+
+    Has =/= 1
+
+iff
+
+    VCallValue == 0
+    Bud == 1
+    
+returns Val : 0
+```
+
+## peep
+
+```act
+behaviour peep-true of OSM
+interface peep()
+
+for all
+
+    Val : uint128
+    Has : uint128
+    Bud : uint256
+
+storage
+
+    bud[CALLER_ID] |-> Bud
+    nxt            |-> #WordPackUInt128UInt128(Val, Has)
+    
+if
+
+    Has == 1
+    
+iff
+
+    VCallValue == 0
+    Bud == 1
 
 returns Val : 1
 ```
 
-## peep
+```act
+behaviour peep-false of OSM
+interface peep()
+
+for all
+
+    Val : uint128
+    Has : uint128
+    Bud : uint256
+
+storage
+
+    bud[CALLER_ID] |-> Bud
+    nxt            |-> #WordPackUInt128UInt128(Val, Has)
+    
+if
+
+    Has =/= 1
+    
+iff
+
+    VCallValue == 0
+    Bud == 1
+
+returns Val : 0
+```
 
 ## read
 
