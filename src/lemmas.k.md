@@ -103,8 +103,8 @@ rule X |Int (Y *Int pow128) => Y *Int pow128 +Int X
   andBool #rangeUInt(128, X)
 
 // special case for a boolean
-// rule MaskFirst16 &Int (pow128 +Int X) => X
-//   requires #rangeUInt(128, X)
+rule MaskFirst16 &Int (pow128 +Int X) => X
+  requires #rangeUInt(128, X)
   
 rule (Y *Int pow128 +Int X) /Int pow128 => Y
   requires #rangeUInt(128, X)
