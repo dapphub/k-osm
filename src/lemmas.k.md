@@ -90,7 +90,7 @@ rule MaskFirst12 &Int (Y *Int pow176 +Int X *Int pow160 +Int A) => A
 rule (MaskFirst16 &Int X) <=Int MaxUInt128 => true
   requires #rangeUInt(256, X)
   
-rule MaskLast16 &Int (Y *Int pow128 +Int X) => Y
+rule MaskLast16 &Int (Y *Int pow128 +Int X) => Y *Int pow128
   requires #rangeUInt(128, Y)
   andBool #rangeUInt(128, X)
 
