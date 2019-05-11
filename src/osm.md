@@ -585,10 +585,6 @@ storage Src
     val  |-> Wut
     has  |-> Ok
     
-if
-
-    Ok == 1
-
 iff in range uint64
 
     Zzz + Hop
@@ -600,6 +596,7 @@ iff
     Stopped == 0
     Hop =/= 0
     TIME >= Zzz + Hop
+    Ok =/= 0
 ```
 
 ## kiss
