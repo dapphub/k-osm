@@ -76,7 +76,11 @@ rule (A |Int B) <Int pow256 => true
 rule (A &Int B) <Int pow256 => true
   requires #rangeUInt(256, A)
   andBool #rangeUInt(256, B)
+```
 
+#### packing { address uint16 uint64 }
+
+```k
 rule (Y *Int pow176 +Int X *Int pow160 +Int A) <Int pow256 => true
   requires #rangeAddress(A)
   andBool #rangeUInt(16, X)
@@ -87,29 +91,6 @@ rule MaskFirst12 &Int (Y *Int pow176 +Int X *Int pow160 +Int A) => A
   andBool #rangeUInt(16, X)
   andBool #rangeUInt(64, Y)
 
-rule (MaskFirst16 &Int X) <=Int MaxUInt128 => true
-  requires #rangeUInt(256, X)
-  
-rule MaskLast16 &Int (Y *Int pow128 +Int X) => Y *Int pow128
-  requires #rangeUInt(128, Y)
-  andBool #rangeUInt(128, X)
-
-rule MaskFirst16 &Int (Y *Int pow128 +Int X) => X
-  requires #rangeUInt(128, Y)
-  andBool #rangeUInt(128, X)
-  
-rule X |Int (Y *Int pow128) => Y *Int pow128 +Int X
-  requires #rangeUInt(128, Y)
-  andBool #rangeUInt(128, X)
-
-// special case for a boolean
-rule MaskFirst16 &Int (pow128 +Int X) => X
-  requires #rangeUInt(128, X)
-  
-rule (Y *Int pow128 +Int X) /Int pow128 => Y
-  requires #rangeUInt(128, X)
-  andBool #rangeUInt(128, Y)
-  
 rule MaskFirst24 &Int (Y +Int X) => Y +Int X
   requires #rangeUInt(16, X)
   andBool #rangeUInt(64, Y)
@@ -134,4 +115,41 @@ rule A |Int (Y *Int pow176 +Int X *Int pow160) => Y *Int pow176 +Int X *Int pow1
   requires #rangeAddress(A)
   andBool #rangeUInt(16, X)
   andBool #rangeUInt(64, Y)
+```
+
+#### packing { uint128 uint128 }
+
+```k
+rule (Y *Int pow128 +Int X) <=Int maxUInt256 => true
+  requires #rangeUInt(128, X)
+  andBool #rangeUInt(128, Y)
+  
+rule (MaskFirst16 &Int X) <=Int maxUInt128 => true
+  requires #rangeUInt(256, X)
+  
+rule MaskLast16 &Int (Y *Int pow128 +Int X) => Y *Int pow128
+  requires #rangeUInt(128, Y)
+  andBool #rangeUInt(128, X)
+
+rule MaskFirst16 &Int (Y *Int pow128 +Int X) => X
+  requires #rangeUInt(128, Y)
+  andBool #rangeUInt(128, X)
+  
+// special case for a boolean
+rule MaskFirst16 &Int (pow128 +Int X) => X
+  requires #rangeUInt(128, X)
+
+rule X |Int (Y *Int pow128) => Y *Int pow128 +Int X
+  requires #rangeUInt(128, Y)
+  andBool #rangeUInt(128, X)
+  
+rule (Y *Int pow128 +Int X) /Int pow128 => Y
+  requires #rangeUInt(128, X)
+  andBool #rangeUInt(128, Y)
+
+rule MaskFirst16 &Int (X *Int pow128) => 0
+  requires #rangeUInt(128, X)
+
+rule MaskLast16 &Int X => 0
+  requires #rangeUInt(128, X)
 ```
