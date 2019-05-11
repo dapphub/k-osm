@@ -16,12 +16,14 @@ syntax Int ::= "MaskFirst16"                                           [function
 syntax Int ::= "MaskFirst12"                                           [function]
 syntax Int ::= "MaskLast20"                                            [function]
 syntax Int ::= "MaskLast16"                                            [function]
+syntax Int ::= "MaskZzz"                                               [function]
 rule MaskFirst30 => 65535                                              [macro]
 rule MaskFirst24 => 18446744073709551615                               [macro]
 rule MaskFirst16 => 340282366920938463463374607431768211455            [macro]
 rule MaskFirst12 => 1461501637330902918203684832716283019655932542975  [macro]
 rule MaskLast20 => 115792089237316195423570985007226406215939081747436879206741300988257197096960 [macro]
 rule MaskLast16 => 115792089237316195423570985008687907852929702298719625575994209400481361428480 [macro]
+rule MaskZzz => 115790322390251417039241497492158469052807804578432885314823438572906973495295 [macro]
 
 syntax Int ::= "minUInt16"
              | "maxUInt16"
@@ -112,6 +114,11 @@ rule (Y *Int pow176 +Int X *Int pow160 +Int A) /Int pow176 => Y
   andBool #rangeUInt(64, Y)
 
 rule A |Int (Y *Int pow176 +Int X *Int pow160) => Y *Int pow176 +Int X *Int pow160 +Int A
+  requires #rangeAddress(A)
+  andBool #rangeUInt(16, X)
+  andBool #rangeUInt(64, Y)
+
+rule MaskZzz &Int (Y *Int pow176 +Int X *Int pow160 +Int A) => X *Int pow160 +Int A
   requires #rangeAddress(A)
   andBool #rangeUInt(16, X)
   andBool #rangeUInt(64, Y)
