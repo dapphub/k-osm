@@ -135,10 +135,7 @@ rule MaskZzz &Int (Y *Int pow176 +Int X *Int pow160 +Int A) => X *Int pow160 +In
 rule (Y *Int pow128 +Int X) <=Int maxUInt256 => true
   requires #rangeUInt(128, X)
   andBool #rangeUInt(128, Y)
-  
-rule (MaskFirst16 &Int X) <=Int maxUInt128 => true
-  requires #rangeUInt(256, X)
-  
+   
 rule MaskLast16 &Int (Y *Int pow128 +Int X) => Y *Int pow128
   requires #rangeUInt(128, Y)
   andBool #rangeUInt(128, X)
@@ -158,6 +155,10 @@ rule MaskFirst16 &Int (pow128 +Int X) => X
 rule X |Int (Y *Int pow128) => Y *Int pow128 +Int X
   requires #rangeUInt(128, Y)
   andBool #rangeUInt(128, X)
+
+rule (Y *Int pow128) |Int X => Y *Int pow128 +Int X
+  requires #rangeUInt(128, Y)
+  andBool #rangeUInt(128, X)
   
 rule (Y *Int pow128 +Int X) /Int pow128 => Y
   requires #rangeUInt(128, X)
@@ -168,4 +169,36 @@ rule MaskFirst16 &Int (X *Int pow128) => 0
 
 rule MaskLast16 &Int X => 0
   requires #rangeUInt(128, X)
+```
+
+### poke
+
+```k
+// not being used?
+rule T -Int (T %Int X) <=Int maxUInt64 => true
+  requires #rangeUInt(48, T)
+  andBool #rangeUInt(16, X)
+rule T -Int (T %Int X) >=Int minUInt64 => true
+  requires #rangeUInt(48, T)
+  andBool #rangeUInt(16, X)
+
+// not being used?
+rule (MaskFirst16 &Int X) <=Int maxUInt128 => true
+  requires #rangeUInt(256, X)
+rule (MaskFirst16 &Int X) >=Int minUInt128 => true
+  requires #rangeUInt(256, X)
+
+rule chop(X *Int pow128 +Int (MaskFirst16 &Int Y)) => X *Int pow128 +Int (MaskFirst16 &Int Y)
+  requires #rangeUInt(128, X)
+  andBool #rangeUInt(256, Y)
+
+rule MaskFirst16 &Int (X *Int pow128 +Int (MaskFirst16 &Int Y)) => MaskFirst16 &Int Y
+  requires #rangeUInt(128, X)
+  andBool #rangeUInt(256, Y)
+
+rule pow128 |Int (MaskFirst16 &Int Y) => pow128 +Int (MaskFirst16 &Int Y)
+  requires #rangeUInt(256, Y)
+
+rule chop(pow128 +Int (MaskFirst16 &Int Y)) => pow128 +Int (MaskFirst16 &Int Y)
+  requires #rangeUInt(256, Y)
 ```
