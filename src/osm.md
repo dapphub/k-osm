@@ -448,7 +448,7 @@ for all
 storage
 
     wards[CALLER_ID] |-> Ward
-    stopped |-> Stopped => 1
+    stopped          |-> Stopped => 1
 
 iff
 
