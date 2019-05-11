@@ -566,7 +566,7 @@ for all
     Src     : address ValueLike
     Hop     : uint16
     Zzz     : uint64
-    Wut     : bytes32
+    Wut     : uint256
     Ok      : bool
     CurVal  : uint128
     CurHas  : uint128
@@ -578,7 +578,7 @@ storage
     stopped       |-> Stopped
     src_hop_zzz   |-> #WordPackAddrUInt16UInt64(Src, Hop, Zzz) => #WordPackAddrUInt16UInt64(Src, Hop, (TIME - (TIME %Int Hop)))
     cur           |-> #WordPackUInt128UInt128(CurVal, CurHas)  => #WordPackUInt128UInt128(NxtVal, NxtHas)
-    nxt           |-> #WordPackUInt128UInt128(NxtVal, NxtHas)  => #WordPackUInt128UInt128(Wut &Int MaskFirst16, 1)
+    nxt           |-> #WordPackUInt128UInt128(NxtVal, NxtHas)  => pow128 +Int (MaskFirst16 &Int Wut)
     
 storage Src
 
