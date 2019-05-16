@@ -540,6 +540,7 @@ for all
     NxtVal  : uint128
     NxtHas  : uint128
     Ward    : uint256
+    Stopped : uint256
 
 storage
 
