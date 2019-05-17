@@ -223,7 +223,7 @@ iff
 
     VCallValue == 0
     Bud == 1
-    
+
 returns Val : 1
 ```
 
@@ -250,7 +250,7 @@ iff
 
     VCallValue == 0
     Bud == 1
-    
+
 returns Val : 0
 ```
 
@@ -270,11 +270,11 @@ storage
 
     bud[CALLER_ID] |-> Bud
     nxt            |-> #WordPackUInt128UInt128(Val, Has)
-    
+
 if
 
     Has == 1
-    
+
 iff
 
     VCallValue == 0
@@ -297,11 +297,11 @@ storage
 
     bud[CALLER_ID] |-> Bud
     nxt            |-> #WordPackUInt128UInt128(Val, Has)
-    
+
 if
 
     Has =/= 1
-    
+
 iff
 
     VCallValue == 0
@@ -580,16 +580,16 @@ storage
     src_hop_zzz   |-> #WordPackAddrUInt16UInt64(Src, Hop, Zzz) => #WordPackAddrUInt16UInt64(Src, Hop, (TIME - (TIME %Int Hop)))
     cur           |-> #WordPackUInt128UInt128(CurVal, CurHas)  => #WordPackUInt128UInt128(NxtVal, NxtHas)
     nxt           |-> #WordPackUInt128UInt128(NxtVal, NxtHas)  => pow128 +Int (MaskFirst16 &Int Wut)
-    
+
 storage Src
 
     val  |-> Wut
     has  |-> Ok
-    
+
 iff in range uint64
 
     Zzz + Hop
-    
+
 iff
 
     VCallValue == 0

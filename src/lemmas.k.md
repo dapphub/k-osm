@@ -96,7 +96,7 @@ rule MaskFirst12 &Int (Y *Int pow176 +Int X *Int pow160 +Int A) => A
 rule MaskFirst24 &Int (Y +Int X) => Y +Int X
   requires #rangeUInt(16, X)
   andBool #rangeUInt(64, Y)
-  
+
 rule MaskFirst30 &Int (Y *Int pow176 +Int X *Int pow160 +Int A) /Int pow160 => X
   requires #rangeAddress(A)
   andBool #rangeUInt(16, X)
@@ -135,7 +135,7 @@ rule MaskZzz &Int (Y *Int pow176 +Int X *Int pow160 +Int A) => X *Int pow160 +In
 rule (Y *Int pow128 +Int X) <=Int maxUInt256 => true
   requires #rangeUInt(128, X)
   andBool #rangeUInt(128, Y)
-   
+
 rule MaskLast16 &Int (Y *Int pow128 +Int X) => Y *Int pow128
   requires #rangeUInt(128, Y)
   andBool #rangeUInt(128, X)
@@ -147,7 +147,7 @@ rule MaskLast16 &Int (pow128 +Int X) => pow128
 rule MaskFirst16 &Int (Y *Int pow128 +Int X) => X
   requires #rangeUInt(128, Y)
   andBool #rangeUInt(128, X)
-  
+
 // special case for a boolean
 rule MaskFirst16 &Int (pow128 +Int X) => X
   requires #rangeUInt(128, X)
@@ -159,7 +159,7 @@ rule X |Int (Y *Int pow128) => Y *Int pow128 +Int X
 rule (Y *Int pow128) |Int X => Y *Int pow128 +Int X
   requires #rangeUInt(128, Y)
   andBool #rangeUInt(128, X)
-  
+
 rule (Y *Int pow128 +Int X) /Int pow128 => Y
   requires #rangeUInt(128, X)
   andBool #rangeUInt(128, Y)
