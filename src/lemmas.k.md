@@ -2,10 +2,12 @@
 
 ```k
 syntax Int ::= "pow16"   [function]
+syntax Int ::= "pow64"   [function]
 syntax Int ::= "pow128"  [function]
 syntax Int ::= "pow160"  [function]
 syntax Int ::= "pow176"  [function]
 rule pow16  => 65536                                                  [macro]
+rule pow64  => 18446744073709551616                                   [macro]
 rule pow128 => 340282366920938463463374607431768211456                [macro]
 rule pow160 => 1461501637330902918203684832716283019655932542976      [macro]
 rule pow176 => 95780971304118053647396689196894323976171195136475136  [macro]

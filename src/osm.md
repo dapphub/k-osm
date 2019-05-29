@@ -156,11 +156,7 @@ storage
 
 if
 
-    TIME >= Zzz + Hop
-
-iff in range uint64
-
-    Zzz + Hop
+    Zzz + Hop <= TIME
 
 iff
 
@@ -185,11 +181,8 @@ storage
 
 if
 
-    TIME < Zzz + Hop
-
-iff in range uint64
-
-    Zzz + Hop
+    Zzz + Hop > TIME
+    Zzz + Hop < pow64
 
 iff
 
