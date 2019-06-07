@@ -584,6 +584,7 @@ iff
     VCallValue == 0
     VCallDepth < 1024
     Stopped == 0
+    Hop =/= 0
     TIME >= Zzz + Hop
     Ok =/= 0
 
