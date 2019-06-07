@@ -579,10 +579,6 @@ storage Src
     val  |-> Wut
     has  |-> Ok
 
-iff in range uint64
-
-    Zzz + Hop
-
 iff
 
     VCallValue == 0
@@ -591,6 +587,10 @@ iff
     Hop =/= 0
     TIME >= Zzz + Hop
     Ok =/= 0
+
+if
+
+    #rangeUInt(48, TIME)
 ```
 
 ## kiss
