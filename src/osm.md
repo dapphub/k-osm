@@ -551,7 +551,7 @@ iff
 ## poke
 
 ```act
-behaviour poke of OSM
+behaviour poke-ok of OSM
 interface poke()
 
 for all
@@ -586,11 +586,47 @@ iff
     Stopped == 0
     Hop =/= 0
     TIME >= Zzz + Hop
-    Ok =/= 0
 
 if
 
     #rangeUInt(48, TIME)
+    Ok =/= 0
+```
+
+```act
+behaviour poke-not-ok of OSM
+interface poke()
+
+for all
+
+    Stopped : uint256
+    Src     : address ValueLike
+    Hop     : uint16
+    Zzz     : uint64
+    Wut     : uint256
+    Ok      : bool
+
+storage
+
+    stopped       |-> Stopped
+    src_hop_zzz   |-> #WordPackAddrUInt16UInt64(Src, Hop, Zzz)
+
+storage Src
+
+    val  |-> Wut
+    has  |-> Ok
+
+iff
+
+    VCallValue == 0
+    VCallDepth < 1024
+    Stopped == 0
+    TIME >= Zzz + Hop
+
+if
+
+    #rangeUInt(48, TIME)
+    Ok == 0
 ```
 
 ## kiss
