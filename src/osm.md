@@ -577,8 +577,8 @@ storage
 
 storage Src
 
-    1 |-> #WordPackAddrUInt8(Owner, Ok)
-    2 |-> Wut
+    owner_has |-> #WordPackAddrUInt8(Owner, Ok)
+    val       |-> Wut
 
 iff
 
@@ -615,8 +615,8 @@ storage
 
 storage Src
 
-    1 |-> #WordPackAddrUInt8(Owner, Ok)
-    2 |-> Wut
+    owner_has |-> #WordPackAddrUInt8(Owner, Ok)
+    val       |-> Wut
 
 iff
 
@@ -689,8 +689,8 @@ types
   Ok    : bool
 
 storage
-  1 |-> #WordPackAddrUInt8(Owner, Ok)
-  2 |-> Value
+  owner_has |-> #WordPackAddrUInt8(Owner, Ok)
+  val       |-> Value
 
 iff
   VCallValue == 0
@@ -708,8 +708,8 @@ types
   Ok    : bool
 
 storage
-  1 |-> #WordPackAddrUInt8(Owner, Ok)
-  2 |-> Value
+  owner_has |-> #WordPackAddrUInt8(Owner, Ok)
+  val       |-> Value
 
 iff
   VCallValue == 0
