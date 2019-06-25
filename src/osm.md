@@ -562,6 +562,7 @@ for all
     Zzz     : uint64
     Wut     : uint256
     Ok      : bool
+    Owner   : address
     CurVal  : uint128
     CurHas  : uint128
     NxtVal  : uint128
@@ -576,8 +577,8 @@ storage
 
 storage Src
 
-    val  |-> Wut
-    has  |-> Ok
+    1 |-> #WordPackAddrUInt8(Owner, Ok)
+    2 |-> Wut
 
 iff
 
@@ -603,6 +604,7 @@ for all
     Src     : address DSValue
     Hop     : uint16
     Zzz     : uint64
+    Owner   : address
     Wut     : uint256
     Ok      : bool
 
@@ -613,8 +615,8 @@ storage
 
 storage Src
 
-    val  |-> Wut
-    has  |-> Ok
+    1 |-> #WordPackAddrUInt8(Owner, Ok)
+    2 |-> Wut
 
 iff
 
