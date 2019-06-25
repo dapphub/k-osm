@@ -13,9 +13,9 @@
     "OSM": {
       "solc_output": "osm/out/osm.sol.json"
     },
-    "ValueLike": {
-      "name": "Value",
-      "solc_output": "osm/out/value.sol.json"
+    "DSValue": {
+      "name": "DSValue",
+      "solc_output": "osm/out/osm.sol.json"
     }
   },
   "dapp_root": "osm"
