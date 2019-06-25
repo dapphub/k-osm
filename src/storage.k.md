@@ -1,3 +1,5 @@
+### OSM
+
 ```k
 syntax Int ::= "#WordPackAddrUInt16UInt64" "(" Int "," Int "," Int ")"  [function]
 rule #WordPackAddrUInt16UInt64(A, X, Y) => Y *Int pow176 +Int X *Int pow160 +Int A
@@ -33,12 +35,23 @@ rule #OSM.nxt => 4
 
 syntax Int ::= "#OSM.bud" "[" Int "]"  [function]
 rule #OSM.bud[A] => #hashedLocation("Solidity", 5, A)
+```
 
-// bool
-syntax Int ::= "#Src.has"  [function]
-rule #Src.has => 0
+### DSValue
 
-// bytes32
-syntax Int ::= "#Src.val"  [function]
-rule #Src.val => 1
+```k
+syntax Int ::= "#WordPackAddrUInt8" "(" Int "," Int ")" [function]
+// ----------------------------------------------------------
+rule #WordPackAddrUInt8(A, X) => X *Int pow160 +Int A
+  requires #rangeAddress(A)
+  andBool #rangeUInt(8, X)
+
+syntax Int ::= "#Src.authority" [function]
+rule #Src.authority => 0
+
+syntax Int ::= "#Src.owner_has" [function]
+rule #Src.owner_has => 1
+
+syntax Int ::= "#Src.val" [function]
+rule #Src.val => 2
 ```

@@ -186,6 +186,21 @@ rule MaskLast16 &Int X => 0
   requires #rangeUInt(128, X)
 ```
 
+### packing { address bool }
+
+```
+rule ((X *Int pow160) +Int A) /Int pow160 => X
+  requires #rangeAddress(A)
+
+rule maxUInt160 &Int ((X *Int pow160) +Int A) => A
+  requires #rangeAddress(A)
+  andBool #rangeUInt(48, X)
+
+rule maxUInt160 &Int (X *Int pow160) => 0
+  requires #rangeUInt(48, X)
+```
+
+
 ### poke
 
 ```k

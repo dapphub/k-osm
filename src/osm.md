@@ -557,7 +557,7 @@ interface poke()
 for all
 
     Stopped : uint256
-    Src     : address ValueLike
+    Src     : address DSValue
     Hop     : uint16
     Zzz     : uint64
     Wut     : uint256
@@ -600,7 +600,7 @@ interface poke()
 for all
 
     Stopped : uint256
-    Src     : address ValueLike
+    Src     : address DSValue
     Hop     : uint16
     Zzz     : uint64
     Wut     : uint256
@@ -672,4 +672,46 @@ iff
 
     VCallValue == 0
     Ward == 1
+```
+
+
+# DSValue
+
+```act
+behaviour peek of DSValue
+interface peek()
+
+types
+  Owner : address
+  Value : bytes32
+  Ok    : bool
+
+storage
+  1 |-> #WordPackAddrUInt8(Owner, Ok)
+  2 |-> Value
+
+iff
+  VCallValue == 0
+
+returns Value : Ok
+```
+
+```act
+behaviour read of DSValue
+interface read()
+
+types
+  Owner : address
+  Value : bytes32
+  Ok    : bool
+
+storage
+  1 |-> #WordPackAddrUInt8(Owner, Ok)
+  2 |-> Value
+
+iff
+  VCallValue == 0
+  Ok == 1
+
+returns Value
 ```
