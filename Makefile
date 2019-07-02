@@ -7,7 +7,7 @@ specs: dapp
 dapp:
 	git submodule sync --recursive
 	git submodule update --init --recursive
-	cd osm && dapp build
+	cd osm && dapp --use solc:0.5.6 build
 
 .PHONY: clean
 clean:
