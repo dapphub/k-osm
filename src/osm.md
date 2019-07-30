@@ -557,7 +557,7 @@ interface poke()
 for all
 
     Stopped : uint256
-    Src     : address DSValue
+    Src     : address Value
     Hop     : uint16
     Zzz     : uint64
     Wut     : uint256
@@ -601,7 +601,7 @@ interface poke()
 for all
 
     Stopped : uint256
-    Src     : address DSValue
+    Src     : address Value
     Hop     : uint16
     Zzz     : uint64
     Owner   : address
@@ -677,10 +677,12 @@ iff
 ```
 
 
-# DSValue
+# Value
+
+This is a stripped-down version of `DSValue`.
 
 ```act
-behaviour peek of DSValue
+behaviour peek of Value
 interface peek()
 
 types
@@ -699,7 +701,7 @@ returns Value : Ok
 ```
 
 ```act
-behaviour read of DSValue
+behaviour read of Value
 interface read()
 
 types

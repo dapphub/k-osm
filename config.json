@@ -11,11 +11,10 @@
   },
   "implementations": {
     "OSM": {
-      "solc_output": "osm/out/osm.sol.json"
+      "src": "src/osm.sol"
     },
-    "DSValue": {
-      "name": "DSValue",
-      "solc_output": "osm/out/osm.sol.json"
+    "Value": {
+      "src": "src/value.sol"
     }
   },
   "dapp_root": "osm"
